@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SI-HATI — Info Kegiatan</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .event-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; padding-top: 8px; }
+    @media (max-width: 768px) { .event-grid { grid-template-columns: 1fr; } }
+
+    .event-card {
+      background: #FAFAF8; border: 1px solid #C8D5BE;
+      border-radius: 12px; overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+    .event-card:hover { border-color: #7A8F6E; box-shadow: 0 6px 20px rgba(78,98,69,0.12); transform: translateY(-2px); }
+
+    .event-banner {
+      height: 120px; display: flex; align-items: center;
+      justify-content: center; position: relative;
+      font-size: 40px;
+    }
+    .eb-green  { background: linear-gradient(135deg,#D6E8CC,#C8D5BE); }
+    .eb-teal   { background: linear-gradient(135deg,#C6DFDA,#B8D4CE); }
+    .eb-amber  { background: linear-gradient(135deg,#E8E0C8,#DDD4B8); }
+    .eb-blue   { background: linear-gradient(135deg,#CDD8E8,#BCCCD8); }
+    .eb-rose   { background: linear-gradient(135deg,#E8D4D0,#DCC8C4); }
+    .eb-purple { background: linear-gradient(135deg,#DDD8E8,#CCC4D8); }
+
+    .event-tag {
+      position: absolute; top: 10px; left: 12px;
+      font-size: 10px; font-weight: bold;
+      background: rgba(255,255,255,0.82); color: #4E6245;
+      padding: 3px 10px; border-radius: 12px;
+      text-transform: uppercase; letter-spacing: 0.7px;
+    }
+    .event-date-badge {
+      position: absolute; top: 10px; right: 12px;
+      background: #4E6245; color: #FAFAF8;
+      font-size: 10px; font-weight: bold;
+      padding: 3px 10px; border-radius: 12px;
+    }
+
+    .event-body { padding: 18px 20px; }
+    .event-title { font-family: Georgia,serif; font-size: 15px; color: #2E3A28; margin-bottom: 6px; }
+    .event-meta { display: flex; gap: 14px; margin-bottom: 10px; flex-wrap: wrap; }
+    .event-meta span { font-size: 11px; color: #8A9E80; display: flex; align-items: center; gap: 4px; }
+    .event-desc { font-size: 12px; color: #5A6B52; line-height: 1.65; margin-bottom: 16px; }
+    .event-footer { display: flex; align-items: center; justify-content: space-between; }
+    .event-slots { font-size: 11px; color: #8A9E80; }
+    .btn-daftar {
+      padding: 8px 20px; border-radius: 16px;
+      font-size: 12px; font-weight: bold;
+      background: #7A8F6E; color: #FAFAF8;
+      border: none; cursor: pointer; transition: background 0.18s;
+    }
+    .btn-daftar:hover { background: #4E6245; }
+    .btn-daftar.penuh { background: #C8D5BE; color: #8A9E80; cursor: not-allowed; }
+    .btn-daftar.terdaftar { background: #C8D5BE; color: #4E6245; }
+
+    .filter-tags { display: flex; gap: 8px; flex-wrap: wrap; padding: 20px 0 4px; }
+    .ftag {
+      padding: 6px 16px; border-radius: 20px;
+      font-size: 12px; border: 1px solid #C8D5BE;
+      background: #FAFAF8; color: #5A6B52; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ftag.active { background: #7A8F6E; color: #FAFAF8; border-color: #7A8F6E; }
+  </style>
+</head>
+<body>
+
+<div class="navbar-top"></div>
+<nav class="navbar">
+  <div class="navbar-brand">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" stroke="#4E6245" stroke-width="1.2" fill="#C8D5BE"/>
+      <path d="M9 20 Q12 12 16 16 Q20 20 23 12" stroke="#4E6245" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <circle cx="16" cy="9" r="2.2" fill="#4E6245" opacity="0.7"/>
+    </svg>
+    <span class="brand-name">SI-HATI</span>
+  </div>
+  <ul class="nav-menu">
+    <li><a href="index.html" class="nav-link">Beranda</a></li>
+    <li><a href="about.html" class="nav-link">About Mental Health</a></li>
+    <li><a href="relaksasi.html" class="nav-link">Relaksasi Mandiri</a></li>
+    <li><a href="ediary.html" class="nav-link">E-Diary</a></li>
+    <li><a href="info-kegiatan.html" class="nav-link active">Info Kegiatan</a></li>
+    <li><a href="kontak-darurat.html" class="nav-link">Kontak Darurat</a></li>
+  </ul>
+  <div id="nav-auth-area"></div>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag">Info Kegiatan</p>
+  <h1>Kegiatan Kesehatan Mental</h1>
+  <p>Ikuti berbagai kegiatan, seminar, dan workshop kesehatan mental untuk mendukung perjalanan pemulihan dan pengembanganmu.</p>
+</section>
+<div class="breadcrumb">Beranda &raquo; <span>Info Kegiatan</span></div>
+
+<div class="container">
+  <div class="filter-tags">
+    <button class="ftag active" onclick="filterEvent(this,'semua')">Semua</button>
+    <button class="ftag" onclick="filterEvent(this,'webinar')">Webinar</button>
+    <button class="ftag" onclick="filterEvent(this,'workshop')">Workshop</button>
+    <button class="ftag" onclick="filterEvent(this,'seminar')">Seminar</button>
+    <button class="ftag" onclick="filterEvent(this,'komunitas')">Komunitas</button>
+  </div>
+
+  <div class="event-grid" id="eventGrid">
+
+    <div class="event-card" data-cat="webinar">
+      <div class="event-banner eb-green">
+        🧠
+        <span class="event-tag">Webinar</span>
+        <span class="event-date-badge">15 Mei 2026</span>
+      </div>
+      <div class="event-body">
+        <h3 class="event-title">Webinar: Mengelola Stres di Masa Perkuliahan</h3>
+        <div class="event-meta">
+          <span>📅 Rabu, 15 Mei 2026</span>
+          <span>🕐 19.00 – 21.00 WIB</span>
+          <span>💻 Online via Zoom</span>
+        </div>
+        <p class="event-desc">Pelajari strategi efektif menghadapi tekanan akademik, deadline, dan ekspektasi di masa kuliah bersama psikolog klinis berpengalaman.</p>
+        <div class="event-footer">
+          <span class="event-slots">🪑 78 / 100 kursi terisi</span>
+          <button class="btn-daftar" onclick="daftarEvent(this)">Daftar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card" data-cat="workshop">
+      <div class="event-banner eb-teal">
+        🌿
+        <span class="event-tag">Workshop</span>
+        <span class="event-date-badge">22 Mei 2026</span>
+      </div>
+      <div class="event-body">
+        <h3 class="event-title">Workshop Mindfulness untuk Pemula</h3>
+        <div class="event-meta">
+          <span>📅 Kamis, 22 Mei 2026</span>
+          <span>🕐 09.00 – 12.00 WIB</span>
+          <span>📍 Aula Kampus, Gedung B</span>
+        </div>
+        <p class="event-desc">Workshop tatap muka intensif untuk belajar teknik mindfulness dasar yang bisa langsung diterapkan dalam kehidupan sehari-hari.</p>
+        <div class="event-footer">
+          <span class="event-slots">🪑 28 / 30 kursi terisi</span>
+          <button class="btn-daftar" onclick="daftarEvent(this)">Daftar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card" data-cat="seminar">
+      <div class="event-banner eb-amber">
+        💛
+        <span class="event-tag">Seminar</span>
+        <span class="event-date-badge">1 Jun 2026</span>
+      </div>
+      <div class="event-body">
+        <h3 class="event-title">Seminar Nasional: Kesehatan Mental Generasi Z</h3>
+        <div class="event-meta">
+          <span>📅 Senin, 1 Juni 2026</span>
+          <span>🕐 08.00 – 16.00 WIB</span>
+          <span>📍 Jakarta Convention Center</span>
+        </div>
+        <p class="event-desc">Seminar skala nasional membahas tantangan kesehatan mental generasi Z di era digital bersama pakar kesehatan jiwa Indonesia.</p>
+        <div class="event-footer">
+          <span class="event-slots">🪑 215 / 500 kursi terisi</span>
+          <button class="btn-daftar" onclick="daftarEvent(this)">Daftar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card" data-cat="komunitas">
+      <div class="event-banner eb-blue">
+        🤝
+        <span class="event-tag">Komunitas</span>
+        <span class="event-date-badge">Tiap Minggu</span>
+      </div>
+      <div class="event-body">
+        <h3 class="event-title">Support Group Online Mingguan</h3>
+        <div class="event-meta">
+          <span>📅 Setiap Minggu</span>
+          <span>🕐 19.30 – 21.00 WIB</span>
+          <span>💻 Online via Meet</span>
+        </div>
+        <p class="event-desc">Sesi berbagi pengalaman dan saling mendukung dalam kelompok kecil yang aman dan terpercaya, difasilitasi oleh konselor terlatih.</p>
+        <div class="event-footer">
+          <span class="event-slots">🪑 8 / 12 kursi terisi</span>
+          <button class="btn-daftar" onclick="daftarEvent(this)">Daftar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card" data-cat="workshop">
+      <div class="event-banner eb-rose">
+        🎨
+        <span class="event-tag">Workshop</span>
+        <span class="event-date-badge">8 Jun 2026</span>
+      </div>
+      <div class="event-body">
+        <h3 class="event-title">Art Therapy: Ekspresi Diri Melalui Seni</h3>
+        <div class="event-meta">
+          <span>📅 Minggu, 8 Juni 2026</span>
+          <span>🕐 10.00 – 13.00 WIB</span>
+          <span>📍 Ruang Seni Lt. 2</span>
+        </div>
+        <p class="event-desc">Workshop terapi seni untuk mengekspresikan emosi dan pengalaman melalui berbagai media artistik. Tidak diperlukan kemampuan seni sebelumnya.</p>
+        <div class="event-footer">
+          <span class="event-slots">🪑 12 / 20 kursi terisi</span>
+          <button class="btn-daftar" onclick="daftarEvent(this)">Daftar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="event-card" data-cat="webinar">
+      <div class="event-banner eb-purple">
+        🌙
+        <span class="event-tag">Webinar</span>
+        <span class="event-date-badge">20 Jun 2026</span>
+      </div>
+      <div class="event-body">
+        <h3 class="event-title">Webinar: Tidur Sehat untuk Mental yang Kuat</h3>
+        <div class="event-meta">
+          <span>📅 Sabtu, 20 Juni 2026</span>
+          <span>🕐 15.00 – 16.30 WIB</span>
+          <span>💻 Online via Zoom</span>
+        </div>
+        <p class="event-desc">Memahami hubungan antara kualitas tidur dan kesehatan mental, serta cara membangun kebiasaan tidur yang sehat dan konsisten.</p>
+        <div class="event-footer">
+          <span class="event-slots">🪑 45 / 200 kursi terisi</span>
+          <button class="btn-daftar" onclick="daftarEvent(this)">Daftar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div><div class="footer-brand">SI-HATI</div><p>&copy; 2026 Sistem Informasi Kesehatan Mental Terintegrasi</p></div>
+  <div class="footer-links"><a href="index.html">Beranda</a><a href="about.html">About</a><a href="#">Kontak</a></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() { requireLogin(); });
+
+  function filterEvent(btn, cat) {
+    document.querySelectorAll(".ftag").forEach(function(b){ b.classList.remove("active"); });
+    btn.classList.add("active");
+    document.querySelectorAll(".event-card").forEach(function(card) {
+      if (cat === "semua" || card.dataset.cat === cat) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  function daftarEvent(btn) {
+    if (btn.classList.contains("terdaftar") || btn.classList.contains("penuh")) return;
+    btn.textContent = "✓ Terdaftar";
+    btn.classList.add("terdaftar");
+    showToast("Berhasil mendaftar kegiatan!");
+  }
+</script>
+</body>
+</html>
