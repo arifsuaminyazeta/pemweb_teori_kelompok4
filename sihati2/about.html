@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SI-HATI - About Mental Health</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="navbar-top"></div>
+<nav class="navbar">
+<div class="navbar-brand">
+  <img src="logo.png" alt="Logo SI-HATI" style="width:40px; height:40px; object-fit:contain;" />
+  <span class="brand-name">SI-HATI</span>
+</div>
+
+  <ul class="nav-menu">
+    <li><a href="index.html" class="nav-link">Beranda</a></li>
+    <li><a href="about.html" class="nav-link active">About Mental Health</a></li>
+    <li><a href="#" class="nav-link" onclick="goProtected('relaksasi.html');return false;">Relaksasi Mandiri</a></li>
+    <li><a href="#" class="nav-link" onclick="goProtected('ediary.html');return false;">E-Diary</a></li>
+    <li><a href="#" class="nav-link" onclick="goProtected('info-kegiatan.html');return false;">Info Kegiatan</a></li>
+    <li><a href="#" class="nav-link" onclick="goProtected('kontak-darurat.html');return false;">Kontak Darurat</a></li>
+  </ul>
+  <div id="nav-auth-area"></div>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag">Sistem Informasi Kesehatan Mental Terintegrasi</p>
+  <h1>About Mental Health</h1>
+  <p>Kesehatan mental mencakup kondisi emosional, psikologis, dan sosial seseorang. Kenali lebih jauh untuk menjaga dirimu dan orang-orang di sekitarmu.</p>
+</section>
+
+<div class="breadcrumb">Beranda &raquo; <span>About Mental Health</span></div>
+
+<div class="container">
+  <p class="section-label">Topik Utama</p>
+  <div class="card-grid">
+
+<div class="card" onclick="openModal('modal1')">
+  <div class="card-thumb thumb-green">
+    <img src="Image/1.png" alt="Kesehatan Mental" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
+    <span class="thumb-label">Mental Health</span>
+  </div>
+  <div class="card-body">
+    <h3 class="card-title">Apa itu Kesehatan Mental?</h3>
+    <p class="card-desc">Memahami pengertian, komponen, dan pentingnya kesehatan mental dalam kehidupan sehari-hari.</p>
+  </div>
+</div>
+
+    <div class="card" onclick="openModal('modal2')">
+      <div class="card-thumb thumb-teal">
+        <img src="Image/2.png" alt="Stres & Kecemasan" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
+        <span class="thumb-label">Stres & Kecemasan</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Mengenal Stres & Kecemasan</h3>
+        <p class="card-desc">Pelajari tanda-tanda stres dan kecemasan serta cara menghadapinya secara sehat.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal3')">
+      <div class="card-thumb thumb-rose">
+        <img src="Image/3.png" alt="Depresi" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
+        <span class="thumb-label">Depresi</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Memahami Depresi</h3>
+        <p class="card-desc">Depresi bukan sekadar sedih. Kenali gejalanya, penyebab, dan langkah awal mencari bantuan.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal4')">
+      <div class="card-thumb thumb-amber">
+        <img src="Image/4.png" alt="Tips & Edukasi" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
+        <span class="thumb-label">Tips & Edukasi</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Tips Menjaga Kesehatan Mental</h3>
+        <p class="card-desc">Panduan praktis menjaga kesehatan mental untuk mahasiswa dan remaja.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal5')">
+      <div class="card-thumb thumb-blue">
+        <img src="Image/5.png" alt="Minta Bantuan" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
+        <span class="thumb-label">Minta Bantuan</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Kapan Harus Mencari Bantuan?</h3>
+        <p class="card-desc">Tanda-tanda kamu perlu bicara dengan profesional dan cara memulai langkah tersebut.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal('modal6')">
+      <div class="card-thumb thumb-green">
+        <img src="Image/6.png" alt="Stigma" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;" />
+        <span class="thumb-label">Stigma</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Melawan Stigma Mental</h3>
+        <p class="card-desc">Mengapa stigma terhadap kesehatan mental masih ada dan bagaimana kita mengubahnya.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal1">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal1')">&times;</button>
+    <p class="modal-tag">Mental Health</p>
+    <h2 class="modal-title">Apa itu Kesehatan Mental?</h2>
+    <div class="modal-body">
+      <p>Kesehatan mental adalah kondisi di mana seseorang dapat menyadari potensinya, mampu menghadapi tekanan kehidupan normal, bekerja secara produktif, dan berkontribusi pada komunitasnya (WHO, 2018).</p>
+      <p>Kesehatan mental mencakup tiga dimensi utama: <strong>emosional</strong> (kemampuan mengelola perasaan), <strong>psikologis</strong> (cara berpikir dan mengambil keputusan), serta <strong>sosial</strong> (kemampuan membangun hubungan dengan orang lain).</p>
+      <p>Sama seperti kesehatan fisik, kesehatan mental bisa berfluktuasi. Seseorang bisa berada dalam kondisi mental yang baik di satu waktu dan buruk di waktu lain. Ini adalah hal yang normal dan manusiawi.</p>
+      <p><strong>Tanda-tanda kesehatan mental yang baik:</strong></p>
+      <p>Mampu mengelola stres, memiliki hubungan sosial yang positif, merasa nyaman dengan diri sendiri, produktif dalam aktivitas sehari-hari, dan mampu pulih dari kesulitan.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal2">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal2')">&times;</button>
+    <p class="modal-tag">Stres & Kecemasan</p>
+    <h2 class="modal-title">Mengenal Stres & Kecemasan</h2>
+    <div class="modal-body">
+      <p>Stres adalah respons tubuh terhadap tekanan atau tuntutan dari lingkungan. Dalam kadar wajar, stres bisa menjadi motivasi. Namun stres berkepanjangan berdampak buruk pada kesehatan fisik dan mental.</p>
+      <p>Kecemasan (anxiety) adalah perasaan khawatir, takut, atau gelisah yang muncul sebagai respons terhadap ancaman yang nyata atau yang dirasakan. Berbeda dari stres, kecemasan sering kali muncul bahkan tanpa pemicu yang jelas.</p>
+      <p><strong>Gejala umum stres berlebihan:</strong> sulit tidur, mudah marah, kesulitan berkonsentrasi, sakit kepala, dan merasa kelelahan terus-menerus.</p>
+      <p><strong>Cara mengelola stres:</strong> olahraga teratur, tidur cukup, berbicara dengan orang yang dipercaya, mengatur waktu dengan baik, dan mencoba teknik relaksasi seperti pernapasan dalam.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal3">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal3')">&times;</button>
+    <p class="modal-tag">Depresi</p>
+    <h2 class="modal-title">Memahami Depresi</h2>
+    <div class="modal-body">
+      <p>Depresi bukan sekadar "merasa sedih". Depresi adalah gangguan suasana hati yang serius yang memengaruhi cara seseorang berpikir, merasa, dan menjalani aktivitas sehari-hari.</p>
+      <p><strong>Gejala depresi yang perlu diwaspadai:</strong> perasaan sedih berkepanjangan (lebih dari 2 minggu), kehilangan minat pada aktivitas yang disukai, perubahan pola tidur dan makan, kelelahan ekstrem, perasaan tidak berharga, dan dalam kasus berat, pikiran untuk menyakiti diri sendiri.</p>
+      <p>Depresi bukan kelemahan karakter dan bukan sesuatu yang bisa "diatasi sendiri" dengan berpikir positif. Ini adalah kondisi medis yang dapat ditangani dengan bantuan profesional.</p>
+      <p>Jika kamu atau orang di sekitarmu mengalami gejala-gejala ini, jangan ragu untuk mencari bantuan dari tenaga kesehatan mental atau menghubungi layanan darurat yang tersedia.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal4">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal4')">&times;</button>
+    <p class="modal-tag">Tips & Edukasi</p>
+    <h2 class="modal-title">Tips Menjaga Kesehatan Mental</h2>
+    <div class="modal-body">
+      <p><strong>1. Jaga kualitas tidur :</strong> Tidur 7-9 jam setiap malam sangat penting untuk kesehatan otak dan kestabilan emosi.</p>
+      <p><strong>2. Olahraga teratur :</strong> Aktivitas fisik 30 menit setiap hari terbukti secara ilmiah meningkatkan suasana hati melalui pelepasan endorfin.</p>
+      <p><strong>3. Batasi media sosial :</strong> Kurangi waktu scroll media sosial, terutama sebelum tidur. Perbandingan diri dengan orang lain di media sosial dapat memperburuk kesehatan mental.</p>
+      <p><strong>4. Bangun koneksi sosial :</strong> Luangkan waktu untuk bertemu teman atau keluarga. Koneksi sosial yang sehat adalah salah satu prediktor terkuat kesehatan mental yang baik.</p>
+      <p><strong>5. Praktikkan mindfulness :</strong> Cobalah meditasi atau teknik pernapasan singkat setiap hari. Bahkan 5 menit sehari dapat membuat perbedaan besar.</p>
+      <p><strong>6. Jangan ragu meminta bantuan </strong> Berbicara dengan orang yang dipercaya atau profesional adalah tanda kekuatan, bukan kelemahan.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal5">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal5')">&times;</button>
+    <p class="modal-tag">Minta Bantuan</p>
+    <h2 class="modal-title">Kapan Harus Mencari Bantuan?</h2>
+    <div class="modal-body">
+      <p>Mencari bantuan profesional untuk kesehatan mental adalah langkah yang bijak dan berani. Kamu tidak harus menunggu sampai kondisinya sangat parah.</p>
+      <p><strong>Pertimbangkan mencari bantuan jika:</strong></p>
+      <p>Perasaan sedih, cemas, atau hampa berlangsung lebih dari dua minggu; masalah emosional mengganggu pekerjaan, kuliah, atau hubungan; kamu menggunakan alkohol atau zat lain untuk mengatasi perasaan; kamu memiliki pikiran untuk menyakiti diri sendiri atau orang lain.</p>
+      <p><strong>Langkah pertama yang bisa dilakukan:</strong></p>
+      <p>Bicara dengan seseorang yang kamu percaya, hubungi konselor kampus, kunjungi puskesmas atau klinik terdekat, atau hubungi layanan darurat kesehatan mental yang tersedia di halaman Kontak Darurat.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal6">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal6')">&times;</button>
+    <p class="modal-tag">Stigma</p>
+    <h2 class="modal-title">Melawan Stigma Mental</h2>
+    <div class="modal-body">
+      <p>Stigma terhadap kesehatan mental adalah salah satu hambatan terbesar bagi orang-orang untuk mencari bantuan. Banyak orang takut dianggap "lemah" atau "gila" jika mengakui bahwa mereka berjuang secara mental.</p>
+      <p>Stigma muncul dari kurangnya pemahaman dan mitos yang salah tentang gangguan mental. Padahal, gangguan mental adalah kondisi medis, sama seperti diabetes atau hipertensi.</p>
+      <p><strong>Apa yang bisa kita lakukan:</strong></p>
+      <p>Edukasi diri dan orang lain tentang kesehatan mental; gunakan bahasa yang tepat dan tidak merendahkan; tunjukkan empati kepada orang yang berjuang; bagikan pengalaman positif untuk mengurangi rasa malu; dan dukung mereka yang berani mencari bantuan.</p>
+      <p>Dengan saling mendukung dan memahami, kita bisa membangun lingkungan yang lebih sehat secara mental bagi semua orang.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div>
+    <div class="footer-brand">SI-HATI</div>
+    <p>&copy; 2026 Sistem Informasi Kesehatan Mental Terintegrasi</p>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Beranda</a>
+    <a href="#">Kebijakan Privasi</a>
+    <a href="#">Kontak</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".modal-overlay").forEach(function(el) {
+    el.addEventListener("click", function(e) {
+      if (e.target === el) closeModal(el.id);
+    });
+  });
+</script>
+</body>
+</html>

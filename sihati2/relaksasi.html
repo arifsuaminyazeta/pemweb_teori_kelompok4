@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SI-HATI — Relaksasi Mandiri</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .tab-bar {
+      display: flex; gap: 8px;
+      padding: 24px 0 0;
+      border-bottom: 2px solid #E8E3D8;
+      margin-bottom: 32px;
+    }
+    .tab-btn {
+      padding: 9px 22px; border-radius: 20px 20px 0 0;
+      font-size: 13px; font-weight: bold;
+      border: none; cursor: pointer;
+      background: #E8E3D8; color: #5A6B52;
+      transition: background 0.18s, color 0.18s;
+    }
+    .tab-btn.active { background: #7A8F6E; color: #FAFAF8; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Breathing */
+    .breath-center { text-align: center; padding: 32px 0; }
+    .breath-circle {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #C8D5BE, #7A8F6E);
+      margin: 0 auto 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: bold; color: #FAFAF8;
+      transition: transform 0.1s;
+    }
+    .breath-circle.inhale  { animation: inhale 4s ease-in-out forwards; }
+    .breath-circle.hold    { animation: none; transform: scale(1.4); }
+    .breath-circle.exhale  { animation: exhale 4s ease-in-out forwards; }
+    @keyframes inhale { from { transform: scale(1); } to { transform: scale(1.4); } }
+    @keyframes exhale { from { transform: scale(1.4); } to { transform: scale(1); } }
+    .breath-instruction { font-size: 22px; font-weight: bold; color: #2E3A28; margin-bottom: 6px; }
+    .breath-count { font-size: 40px; font-weight: bold; color: #7A8F6E; margin-bottom: 20px; }
+    .breath-desc { font-size: 13px; color: #5A6B52; margin-bottom: 28px; max-width: 400px; margin-left:auto; margin-right:auto; }
+    .btn-breath {
+      padding: 12px 36px; border-radius: 24px;
+      font-size: 14px; font-weight: bold;
+      background: #7A8F6E; color: #FAFAF8;
+      border: none; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-breath:hover { background: #4E6245; }
+    .technique-select { display: flex; gap: 12px; justify-content: center; margin-bottom: 28px; flex-wrap: wrap; }
+    .tech-card {
+      padding: 12px 20px; border-radius: 10px;
+      border: 1.5px solid #C8D5BE; background: #FAFAF8;
+      font-size: 13px; color: #5A6B52; cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+    }
+    .tech-card.selected { border-color: #7A8F6E; background: #C8D5BE; color: #2E3A28; font-weight: bold; }
+
+    /* Grounding */
+    .ground-step {
+      background: #FAFAF8;
+      border: 1px solid #C8D5BE;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .ground-step.active { display: block; }
+    .ground-step-num {
+      font-size: 11px; font-weight: bold; color: #7A8F6E;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .ground-step h3 { font-family: Georgia,serif; font-size: 20px; color: #2E3A28; margin-bottom: 10px; }
+    .ground-step p { font-size: 13px; color: #5A6B52; line-height: 1.7; margin-bottom: 20px; }
+    .ground-nav { display: flex; gap: 12px; align-items: center; }
+    .btn-ground {
+      padding: 10px 28px; border-radius: 20px;
+      font-size: 13px; font-weight: bold;
+      border: none; cursor: pointer; transition: background 0.18s;
+    }
+    .btn-ground.primary { background: #7A8F6E; color: #FAFAF8; }
+    .btn-ground.primary:hover { background: #4E6245; }
+    .btn-ground.secondary { background: #E8E3D8; color: #5A6B52; }
+    .btn-ground.secondary:hover { background: #C8D5BE; }
+    .ground-progress { font-size: 12px; color: #8A9E80; margin-left: auto; }
+    .ground-done {
+      text-align: center; padding: 40px 20px; display: none;
+    }
+    .ground-done-icon { font-size: 48px; margin-bottom: 12px; }
+    .ground-done h3 { font-family: Georgia,serif; font-size: 22px; color: #2E3A28; margin-bottom: 8px; }
+    .ground-done p { font-size: 13px; color: #5A6B52; }
+
+    /* Afirmasi */
+    .afirmasi-box {
+      text-align: center;
+      padding: 48px 32px;
+    }
+    .afirmasi-card {
+      background: linear-gradient(135deg, #C8D5BE, #E8E3D8);
+      border-radius: 16px;
+      padding: 48px 40px;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      box-shadow: 0 4px 20px rgba(78,98,69,0.1);
+    }
+    .afirmasi-text {
+      font-family: Georgia,serif;
+      font-size: 22px;
+      color: #2E3A28;
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .afirmasi-sub { font-size: 13px; color: #5A6B52; margin-top: 10px; }
+    .btn-afirmasi {
+      padding: 12px 32px; border-radius: 24px;
+      font-size: 13px; font-weight: bold;
+      background: #7A8F6E; color: #FAFAF8;
+      border: none; cursor: pointer; transition: background 0.2s;
+    }
+    .btn-afirmasi:hover { background: #4E6245; }
+  </style>
+</head>
+<body>
+
+<div class="navbar-top"></div>
+<nav class="navbar">
+<div class="navbar-brand">
+  <img src="logo.png" alt="Logo SI-HATI" style="width:40px; height:40px; object-fit:contain;" />
+  <span class="brand-name">SI-HATI</span>
+</div>
+
+  <ul class="nav-menu">
+    <li><a href="index.html" class="nav-link">Beranda</a></li>
+    <li><a href="about.html" class="nav-link">About Mental Health</a></li>
+    <li><a href="relaksasi.html" class="nav-link active">Relaksasi Mandiri</a></li>
+    <li><a href="ediary.html" class="nav-link">E-Diary</a></li>
+    <li><a href="info-kegiatan.html" class="nav-link">Info Kegiatan</a></li>
+    <li><a href="kontak-darurat.html" class="nav-link">Kontak Darurat</a></li>
+  </ul>
+  <div id="nav-auth-area"></div>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag">Relaksasi Mandiri</p>
+  <h1>Tenangkan Pikiranmu</h1>
+  <p>Pilih teknik relaksasi yang sesuai dengan kondisimu saat ini. Lakukan secara rutin untuk hasil yang optimal.</p>
+</section>
+<div class="breadcrumb">Beranda &raquo; <span>Relaksasi Mandiri</span></div>
+
+<div class="container">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('breathing')">🌬️ Breathing Exercise</button>
+    <button class="tab-btn" onclick="switchTab('grounding')">🌱 Grounding 5-4-3-2-1</button>
+    <button class="tab-btn" onclick="switchTab('afirmasi')">✨ Afirmasi Positif</button>
+  </div>
+
+  <!-- TAB 1: BREATHING -->
+  <div class="tab-panel active" id="tab-breathing">
+    <div class="technique-select">
+      <div class="tech-card selected" onclick="selectTech(this,'478')">4-7-8 Breathing</div>
+      <div class="tech-card" onclick="selectTech(this,'box')">Box Breathing</div>
+    </div>
+    <div class="breath-center">
+      <div class="breath-circle" id="breathCircle">Mulai</div>
+      <div class="breath-instruction" id="breathInstruction">Siap?</div>
+      <div class="breath-count" id="breathCount">—</div>
+      <p class="breath-desc" id="breathDesc">Teknik 4-7-8: Tarik napas 4 detik, tahan 7 detik, hembuskan 8 detik. Efektif untuk menenangkan sistem saraf.</p>
+      <button class="btn-breath" id="btnBreath" onclick="startBreath()">Mulai</button>
+    </div>
+  </div>
+
+  <!-- TAB 2: GROUNDING -->
+  <div class="tab-panel" id="tab-grounding">
+    <div id="groundSteps">
+      <div class="ground-step active" id="gs0">
+        <div class="ground-step-num">Langkah 1 dari 5</div>
+        <h3>👁️ Lihat 5 Hal di Sekitarmu</h3>
+        <p>Perhatikan dan sebutkan 5 benda yang bisa kamu lihat saat ini. Contoh: meja, jendela, tanaman, lampu, buku. Fokus pada detail warna atau bentuknya.</p>
+        <div class="ground-nav">
+          <button class="btn-ground primary" onclick="nextGround(1)">Lanjut &rarr;</button>
+          <span class="ground-progress">1 / 5</span>
+        </div>
+      </div>
+      <div class="ground-step" id="gs1">
+        <div class="ground-step-num">Langkah 2 dari 5</div>
+        <h3>✋ Sentuh 4 Hal di Sekitarmu</h3>
+        <p>Sentuh dan rasakan tekstur 4 benda. Contoh: permukaan meja, kain baju, lantai, atau rambut. Perhatikan apakah terasa kasar, halus, hangat, atau dingin.</p>
+        <div class="ground-nav">
+          <button class="btn-ground secondary" onclick="nextGround(0)">&larr; Kembali</button>
+          <button class="btn-ground primary" onclick="nextGround(2)">Lanjut &rarr;</button>
+          <span class="ground-progress">2 / 5</span>
+        </div>
+      </div>
+      <div class="ground-step" id="gs2">
+        <div class="ground-step-num">Langkah 3 dari 5</div>
+        <h3>👂 Dengarkan 3 Suara</h3>
+        <p>Diam sejenak dan dengarkan 3 suara yang bisa kamu tangkap. Bisa suara angin, kipas, langkah kaki, atau suara apapun di sekitarmu saat ini.</p>
+        <div class="ground-nav">
+          <button class="btn-ground secondary" onclick="nextGround(1)">&larr; Kembali</button>
+          <button class="btn-ground primary" onclick="nextGround(3)">Lanjut &rarr;</button>
+          <span class="ground-progress">3 / 5</span>
+        </div>
+      </div>
+      <div class="ground-step" id="gs3">
+        <div class="ground-step-num">Langkah 4 dari 5</div>
+        <h3>👃 Cium 2 Aroma</h3>
+        <p>Coba cium 2 aroma di sekitarmu. Bisa aroma makanan, udara segar, parfum, atau benda apapun yang dapat kamu cium dari posisimu sekarang.</p>
+        <div class="ground-nav">
+          <button class="btn-ground secondary" onclick="nextGround(2)">&larr; Kembali</button>
+          <button class="btn-ground primary" onclick="nextGround(4)">Lanjut &rarr;</button>
+          <span class="ground-progress">4 / 5</span>
+        </div>
+      </div>
+      <div class="ground-step" id="gs4">
+        <div class="ground-step-num">Langkah 5 dari 5</div>
+        <h3>👅 Rasakan 1 Rasa</h3>
+        <p>Perhatikan rasa yang ada di mulutmu saat ini, atau minum seteguk air dan rasakan sensasinya. Fokus sepenuhnya pada rasa tersebut.</p>
+        <div class="ground-nav">
+          <button class="btn-ground secondary" onclick="nextGround(3)">&larr; Kembali</button>
+          <button class="btn-ground primary" onclick="finishGround()">Selesai ✓</button>
+          <span class="ground-progress">5 / 5</span>
+        </div>
+      </div>
+    </div>
+    <div class="ground-done" id="groundDone">
+      <div class="ground-done-icon">🌿</div>
+      <h3>Kamu sudah melakukannya!</h3>
+      <p>Teknik grounding 5-4-3-2-1 selesai. Semoga kamu merasa lebih tenang dan hadir di saat ini.</p>
+      <br/>
+      <button class="btn-ground primary" onclick="resetGround()" style="margin-top:8px;">Ulangi</button>
+    </div>
+  </div>
+
+  <!-- TAB 3: AFIRMASI -->
+  <div class="tab-panel" id="tab-afirmasi">
+    <div class="afirmasi-box">
+      <div class="afirmasi-card">
+        <div class="afirmasi-text" id="afirmasiText">"Aku cukup. Aku berharga. Aku mampu menghadapi hari ini."</div>
+        <div class="afirmasi-sub" id="afirmasiSub">Afirmasi #1</div>
+      </div>
+      <p style="font-size:13px;color:#5A6B52;margin-bottom:20px;max-width:400px;margin-left:auto;margin-right:auto;">
+        Baca afirmasi ini dengan penuh keyakinan. Ucapkan dalam hati atau dengan suara pelan. Ulangi beberapa kali jika perlu.
+      </p>
+      <button class="btn-afirmasi" onclick="nextAfirmasi()">Afirmasi Berikutnya &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div><div class="footer-brand">SI-HATI</div><p>&copy; 2026 Sistem Informasi Kesehatan Mental Terintegrasi</p></div>
+  <div class="footer-links"><a href="index.html">Beranda</a><a href="about.html">About</a><a href="#">Kontak</a></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+<script>
+  // Cek login
+  document.addEventListener("DOMContentLoaded", function() { requireLogin(); });
+
+  // Tab
+  function switchTab(name) {
+    document.querySelectorAll(".tab-panel").forEach(function(p){ p.classList.remove("active"); });
+    document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("active"); });
+    document.getElementById("tab-"+name).classList.add("active");
+    event.target.classList.add("active");
+  }
+
+  // Breathing
+  var currentTech = "478";
+  var breathRunning = false;
+  var breathTimer = null;
+
+  var techniques = {
+    "478": { inhale:4, hold:7, exhale:8, desc:"Tarik napas 4 detik, tahan 7 detik, hembuskan 8 detik. Efektif menenangkan sistem saraf." },
+    "box":  { inhale:4, hold:4, exhale:4, desc:"Tarik napas 4 detik, tahan 4 detik, hembuskan 4 detik, tahan 4 detik. Membantu fokus dan ketenangan." }
+  };
+
+  function selectTech(el, tech) {
+    document.querySelectorAll(".tech-card").forEach(function(c){ c.classList.remove("selected"); });
+    el.classList.add("selected");
+    currentTech = tech;
+    document.getElementById("breathDesc").textContent = techniques[tech].desc;
+    stopBreath();
+  }
+
+  function startBreath() {
+    if (breathRunning) { stopBreath(); return; }
+    breathRunning = true;
+    document.getElementById("btnBreath").textContent = "Stop";
+    runPhase("Tarik Napas", techniques[currentTech].inhale, "inhale", function() {
+      runPhase("Tahan", techniques[currentTech].hold, "hold", function() {
+        runPhase("Hembuskan", techniques[currentTech].exhale, "exhale", function() {
+          if (breathRunning) startBreath();
+        });
+      });
+    });
+  }
+
+  function runPhase(label, secs, anim, cb) {
+    if (!breathRunning) return;
+    var circle = document.getElementById("breathCircle");
+    circle.className = "breath-circle " + anim;
+    document.getElementById("breathInstruction").textContent = label;
+    var remaining = secs;
+    document.getElementById("breathCount").textContent = remaining;
+    breathTimer = setInterval(function() {
+      remaining--;
+      document.getElementById("breathCount").textContent = remaining;
+      if (remaining <= 0) {
+        clearInterval(breathTimer);
+        if (breathRunning) cb();
+      }
+    }, 1000);
+  }
+
+  function stopBreath() {
+    breathRunning = false;
+    clearInterval(breathTimer);
+    document.getElementById("breathCircle").className = "breath-circle";
+    document.getElementById("breathCircle").textContent = "Mulai";
+    document.getElementById("breathInstruction").textContent = "Siap?";
+    document.getElementById("breathCount").textContent = "—";
+    document.getElementById("btnBreath").textContent = "Mulai";
+  }
+
+  // Grounding
+  var currentGround = 0;
+  function nextGround(step) {
+    document.getElementById("gs"+currentGround).classList.remove("active");
+    currentGround = step;
+    document.getElementById("gs"+currentGround).classList.add("active");
+  }
+  function finishGround() {
+    document.getElementById("groundSteps").style.display = "none";
+    document.getElementById("groundDone").style.display = "block";
+  }
+  function resetGround() {
+    currentGround = 0;
+    document.querySelectorAll(".ground-step").forEach(function(s){ s.classList.remove("active"); });
+    document.getElementById("gs0").classList.add("active");
+    document.getElementById("groundSteps").style.display = "block";
+    document.getElementById("groundDone").style.display = "none";
+  }
+
+  // Afirmasi
+  var afirmasiList = [
+    "Aku cukup. Aku berharga. Aku mampu menghadapi hari ini.",
+    "Setiap hari aku tumbuh menjadi versi yang lebih baik dari diriku.",
+    "Perasaanku valid. Aku berhak untuk merasa dan menyembuhkan diri.",
+    "Aku memilih untuk fokus pada hal-hal yang bisa aku kendalikan.",
+    "Aku layak mendapatkan kebahagiaan, kedamaian, dan cinta.",
+    "Tantangan ini sementara. Aku lebih kuat dari yang aku kira.",
+    "Aku menghargai diriku sendiri dan merawat kesehatan mentalku.",
+    "Langkah kecil yang konsisten lebih bermakna dari kesempurnaan.",
+    "Aku tidak sendirian. Ada orang yang peduli padaku.",
+    "Hari ini aku memilih untuk bersikap baik pada diriku sendiri."
+  ];
+  var afirmasiIdx = 0;
+  function nextAfirmasi() {
+    afirmasiIdx = (afirmasiIdx + 1) % afirmasiList.length;
+    document.getElementById("afirmasiText").textContent = '"' + afirmasiList[afirmasiIdx] + '"';
+    document.getElementById("afirmasiSub").textContent = "Afirmasi #" + (afirmasiIdx + 1);
+  }
+</script>
+</body>
+</html>
